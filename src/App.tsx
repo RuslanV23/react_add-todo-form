@@ -29,6 +29,10 @@ export const App = () => {
   const [hasUserError, setHasUserError] = useState(false);
 
   const getUniqueId = () => {
+    if (todos.length === 0) {
+      return 0;
+    }
+
     const todoIds = todos.map(todo => todo.id);
 
     return Math.max(...todoIds) + 1;
@@ -104,6 +108,7 @@ export const App = () => {
             id="title-input"
             type="text"
             data-cy="titleInput"
+            placeholder="Enter todo title"
             value={title}
             onChange={handleTitleChange}
           />
@@ -111,16 +116,14 @@ export const App = () => {
         </div>
 
         <div className="field">
-          <label htmlFor="title-user">User: </label>
+          <label htmlFor="user-select">User: </label>
           <select
             id="user-select"
             data-cy="userSelect"
             value={selectedUserId}
             onChange={handleUserChange}
           >
-            <option value="" disabled>
-              Choose a user
-            </option>
+            <option value="">Choose a user</option>
             {usersFromServer.map((user: User) => (
               <option key={user.id} value={user.id}>
                 {user.name}
