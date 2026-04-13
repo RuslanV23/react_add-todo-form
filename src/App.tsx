@@ -7,7 +7,7 @@ import { TodoList } from './components/TodoList';
 import React, { useState } from 'react';
 
 const initialTodos: TodosWithUsers[] = todosFromServer.map(todo => {
-  const user = usersFromServer.find(u => u.id === todo.userId);
+  const user = usersFromServer.find(foundUser => foundUser.id === todo.userId);
 
   if (!user) {
     throw new Error(`User not found for todo ${todo.id}`);
